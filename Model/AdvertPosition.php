@@ -47,4 +47,18 @@ class AdvertPosition extends AdvertsAppModel {
 		)
 	);
 
+/**
+ * Called before each save operation, after validation.
+ * Return a non-true result to halt the save.
+ *
+ * @param array $options Options passed from Model::save().
+ * @return boolean
+ */
+	public function beforeSave($options = array()) {
+		if (isset($this->data[$this->alias][$this->displayField])) {
+			$this->data[$this->alias]['slug'] = $this->createSlug($this->data[$this->alias][$this->displayField]);
+		}
+		return true;
+	}
+
 }
