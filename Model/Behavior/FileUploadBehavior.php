@@ -101,7 +101,7 @@ class FileUploadBehavior extends ModelBehavior {
  * @return boolean
  */
 	public function beforeDelete(Model $Model, $cascade = true) {
-		// Get name of associated file
+		$this->_filename = $Model->field($this->fieldName($Model));
 		return true;
 	}
 
@@ -111,7 +111,7 @@ class FileUploadBehavior extends ModelBehavior {
  * @return void
  */
 	public function afterDelete(Model $Model) {
-		$file = new File($this->uploadDir . $this->_filename);
+		$file = new File($this->uploadDir() . $this->_filename);
 		$file->delete();
 	}
 
