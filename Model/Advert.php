@@ -10,6 +10,15 @@ App::uses('AdvertsAppModel', 'Adverts.Model');
 class Advert extends AdvertsAppModel {
 
 /**
+ * List of behaviors to load when the model object is initialized.
+ *
+ * @var array
+ */
+	public $actsAs = array(
+		'Adverts.FileUpload'
+	);
+
+/**
  * Display field
  *
  * @var string
