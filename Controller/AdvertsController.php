@@ -1,5 +1,7 @@
 <?php
 App::uses('AdvertsAppController', 'Adverts.Controller');
+App::uses('File', 'Utility');
+
 /**
  * Adverts Controller
  *
@@ -15,6 +17,54 @@ class AdvertsController extends AdvertsAppController {
  * @var array
  */
 	public $components = array('Paginator', 'Session');
+
+	/**
+	 * view method
+	 *
+	 * @throws NotFoundException
+	 * @param string $id
+	 * @return void
+	 */
+	public function view($id = null) {
+		if (!$this->Advert->exists($id)) {
+			throw new NotFoundException();
+		}
+		$this->Advert->recursive = -1;
+		$this->Advert->id = $id;
+		$this->Advert->incrementImpressions();
+		return $this->redirect(Router::url('/files/adverts/' . $this->Advert->field('image_filename')), 302);
+	}
+
+/**
+ * Proxy function for advert clicks.
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+	 */
+	public function click($id) {
+		if (!$this->Advert->exists($id)) {
+			throw new NotFoundException();
+		}
+		$this->Advert->id = $id;
+		$this->Advert->incrementClicks();
+		return $this->redirect($this->Advert->field('url'), 307);
+	}
+
+/**
+ * Records an impression for an advert.
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+	 */
+	public function impression($id) {
+		if (!$this->Advert->exists($id)) {
+			throw new NotFoundException();
+		}
+		$this->Advert->id = $id;
+		$this->Advert->incrementImpressions();
+	}
 
 /**
  * admin_index method

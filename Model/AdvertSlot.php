@@ -84,13 +84,13 @@ class AdvertSlot extends AdvertsAppModel {
 			'dependent' => false,
 			'conditions' => array(
 				'Advert.active' => true,
-				'Advert.start_date >= CURDATE()',
-				'Advert.end_date <= CURDATE()',
+				'Advert.start_date <= CURDATE()',
+				'Advert.end_date >= CURDATE()',
 			),
 			'order' => array(
 				'Advert.impressions' => 'ASC'
 			),
-			'limit' => '',
+			'limit' => 1,
 		)
 	);
 

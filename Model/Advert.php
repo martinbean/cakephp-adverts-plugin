@@ -84,4 +84,36 @@ class Advert extends AdvertsAppModel {
 			'foreignKey' => 'advert_slot_id',
 		)
 	);
+
+/**
+ * Increment clicks count for advert.
+ *
+ * @param int $id
+ * @return void
+ */
+	public function incrementClicks($id = null) {
+		if (is_null($id)) {
+			$id = $this->id;
+		}
+		$this->updateAll(
+			array('Advert.clicks' => 'Advert.clicks + 1'),
+			array('Advert.id' => $id)
+		);
+	}
+
+/**
+ * Increment impressions count for advert.
+ *
+ * @param int $id
+ * @return void
+ */
+	public function incrementImpressions($id = null) {
+		if (is_null($id)) {
+			$id = $this->id;
+		}
+		$this->updateAll(
+			array('Advert.impressions' => 'Advert.impressions + 1'),
+			array('Advert.id' => $id)
+		);
+	}
 }

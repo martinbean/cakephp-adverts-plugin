@@ -17,6 +17,25 @@ class AdvertSlotsController extends AdvertsAppController {
 	public $components = array('Paginator', 'Session');
 
 /**
+ * view method
+ *
+ * @throws ForbiddenException
+ * @throws NotFoundException
+ * @param string $slug
+ * @return array
+ */
+	public function view($slug = null) {
+		$advertSlot = $this->AdvertSlot->findBySlug($slug);
+		if (!$advertSlot) {
+			throw new NotFoundException();
+		}
+		if (empty($this->request->params['requested'])) {
+			throw new ForbiddenException();
+		}
+		return $advertSlot;
+	}
+
+/**
  * admin_index method
  *
  * @return void
