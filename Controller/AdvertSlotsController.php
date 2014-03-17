@@ -25,14 +25,10 @@ class AdvertSlotsController extends AdvertsAppController {
  * @return array
  */
 	public function view($slug = null) {
-		$advertSlot = $this->AdvertSlot->findBySlug($slug);
-		if (!$advertSlot) {
-			throw new NotFoundException();
-		}
 		if (empty($this->request->params['requested'])) {
 			throw new ForbiddenException();
 		}
-		return $advertSlot;
+		return $this->AdvertSlot->findBySlug($slug);
 	}
 
 /**
